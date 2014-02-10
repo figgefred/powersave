@@ -1,0 +1,12 @@
+#!/bin/sh
+case "$1" in
+	true) # Enable power saving settings on battery
+		/home/scripts/powersave/scripts/powersave true
+		echo 1 > /usr/local/etc/powersave/active
+	;;
+	false) # Return to default on AC power
+		/home/scripts/powersave/scripts/powersave false
+		echo 0 > /usr/local/etc/powersave/active
+	;;
+esac
+exit 0
