@@ -1,12 +1,22 @@
 #!/bin/sh
 case "$1" in
 	true) # Enable power saving settings on battery
-		/home/scripts/powersave/scripts/powersave true
+		/home/scripts/powersave/scripts/powersave true &&
 		echo 1 > /usr/local/etc/powersave/active
 	;;
 	false) # Return to default on AC power
-		/home/scripts/powersave/scripts/powersave false
+		/home/scripts/powersave/scripts/powersave false &&
 		echo 0 > /usr/local/etc/powersave/active
+	;;
+	*)
+	if cat /sys/class/power_supply/ADP1/online | grep 0 > /dev/null 2>&1
+	then
+#	echo "Is powersave mode"
+		/usr/bin/powersave true
+	else
+#		echo "Powersave mode should be off"
+		/usr/bin/powersave false
+	fi
 	;;
 esac
 exit 0
