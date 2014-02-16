@@ -1,8 +1,8 @@
 #!/bin/sh
 case $1/$2 in
-  pre/*)
+  hibernate|suspend|pre/*)
 	/usr/bin/powersave false ;;
-  post/*)
+  thaw|resume|post/*)
 	/usr/bin/powersave
 	;;
 esac
